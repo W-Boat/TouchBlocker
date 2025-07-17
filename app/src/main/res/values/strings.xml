@@ -1,0 +1,74 @@
+<resources>
+    <string name="app_name">触摸屏蔽器</string>
+    <string name="settings">设置</string>
+    <string name="back">返回</string>
+    <string name="status">状态</string>
+    <string name="status_enabled">已启用</string>
+    <string name="status_disabled">未启用</string>
+    <string name="go_enable">去开启</string>
+    <string name="touch_blocking">触摸屏蔽</string>
+    <string name="key_listening_service">按键监听服务</string>
+    <string name="service_description">启用此服务以允许应用监听按键事件和控制触摸屏蔽功能。</string>
+    <string name="app_info">应用信息</string>
+    <string name="package_name">包名</string>
+    <string name="lsposed_module">LSPosed模块</string>
+    <string name="touch_blocking_function">触摸屏蔽功能</string>
+    <string name="accessibility_service">无障碍服务</string>
+    <string name="enable_accessibility_service">启用无障碍服务</string>
+    <string name="android_version">Android版本</string>
+    <string name="app_version">应用版本</string>
+    <string name="status_activated">已激活</string>
+    <string name="status_not_activated">未激活</string>
+    <string name="status_available">可用</string>
+    <string name="status_unavailable">不可用</string>
+    <string name="status_obtained">已获取</string>
+    <string name="accessibility_dialog_title">启用无障碍服务</string>
+    <string name="accessibility_service_description">监听按键事件并控制触摸屏蔽功能</string>
+    <string name="accessibility_dialog_message">为了使用触摸屏蔽功能，需要启用无障碍服务。\n\n点击确定后将跳转到设置界面，请找到并启用\'触摸屏蔽器\'服务。\n\n授权完成后，请按返回键或使用任务切换器返回本应用。</string>
+    <string name="go_to_settings">去设置</string>
+    <string name="cancel">取消</string>
+    <string name="settings_not_available">无法打开设置界面</string>
+    <string name="accessibility_settings_not_found">找不到无障碍设置</string>
+    <string name="authorization_method">授权方式</string>
+    <string name="device_model">设备型号</string>
+    <string name="lsposed_framework">LSPosed框架</string>
+    <string name="root_permission">Root权限</string>
+    <string name="enable_touch_blocking">启用触摸屏蔽</string>
+    <string name="disable_touch_blocking">禁用触摸屏蔽</string>
+    <string name="please_enable_accessibility_first">请先启用无障碍服务</string>
+    <string name="need_root_or_lsposed">需要Root权限或LSPosed框架</string>
+    <string name="function_unavailable">功能不可用</string>
+    <string name="permission_management">权限管理</string>
+    
+    <!-- Error messages -->
+    <string name="error_root_timeout">Root权限请求超时：请检查Root管理应用是否正常运行</string>
+    <string name="error_root_permission_denied">权限错误：Root管理应用拒绝了请求</string>
+    <string name="error_su_not_found">未找到su命令：设备可能未正确Root</string>
+    <string name="error_root_access_denied">Root权限申请被拒绝：请在Root管理应用中授予本应用权限</string>
+    <string name="error_root_unknown">Root权限请求失败：%1$s</string>
+    
+    <string name="error_accessibility_not_enabled">无障碍服务未启用：请先在设置中启用服务</string>
+    <string name="error_accessibility_permission">无障碍服务权限错误：请重新授权</string>
+    <string name="error_accessibility_unknown">无障碍服务错误：%1$s</string>
+    
+    <string name="error_touch_blocking_not_available">触摸屏蔽功能不可用：需要Root权限或LSPosed框架</string>
+    <string name="error_touch_blocking_permission">触摸屏蔽权限错误：请检查授权状态</string>
+    <string name="error_touch_blocking_unknown">触摸屏蔽错误：%1$s</string>
+    
+    <string name="error_network_timeout">网络请求超时：请检查网络连接</string>
+    <string name="error_network_connection">网络连接错误：请检查网络设置</string>
+    <string name="error_network_unknown">网络错误：%1$s</string>
+    
+    <string name="error_generic">操作失败：%1$s</string>
+    
+    <!-- Success messages -->
+    <string name="success_root_granted">Root权限获取成功</string>
+    <string name="success_accessibility_enabled">无障碍服务已启用</string>
+    <string name="success_touch_blocking_enabled">触摸屏蔽已启用</string>
+    <string name="success_touch_blocking_disabled">触摸屏蔽已禁用</string>
+    
+    <!-- Debug messages -->
+    <string name="debug_accessibility_enabled">无障碍服务检测：已启用</string>
+    <string name="debug_accessibility_disabled">无障碍服务检测：未启用</string>
+    <string name="debug_accessibility_error">调试无障碍服务失败: %1$s</string>
+</resources>
