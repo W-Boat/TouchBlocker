@@ -167,7 +167,7 @@ class MainActivity : ComponentActivity() {
                             fontWeight = FontWeight.Bold,
                             color = MaterialTheme.colorScheme.primary
                         )
-                        
+
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.spacedBy(8.dp)
@@ -188,7 +188,7 @@ class MainActivity : ComponentActivity() {
                                     Text("检查/申请Root", fontSize = 12.sp)
                                 }
                             }
-                            
+
                             OutlinedButton(
                                 onClick = {
                                     viewModel.checkLSPosedStatus()
@@ -198,7 +198,17 @@ class MainActivity : ComponentActivity() {
                                 Text("检查LSPosed", fontSize = 12.sp)
                             }
                         }
-                        
+
+                        Button(
+                            onClick = {
+                                val intent = Intent(context, RegionSelectionActivity::class.java)
+                                context.startActivity(intent)
+                            },
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Text("设置屏蔽区域", fontSize = 14.sp)
+                        }
+
                         // 调试无障碍服务按钮已移至设置界面
                     }
                 }

@@ -4,11 +4,15 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.preferencesDataStore
+import com.example.myapplication.data.model.BlockRegion
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -28,6 +32,7 @@ class PreferencesManager @Inject constructor(
         private val TOUCH_BLOCKING_ENABLED = booleanPreferencesKey("touch_blocking_enabled")
         private val FIRST_RUN = booleanPreferencesKey("first_run")
         private val MODULE_ACTIVE = booleanPreferencesKey("module_active")
+        private val BLOCK_REGIONS = stringPreferencesKey("block_regions")
     }
     
     /**
@@ -78,6 +83,32 @@ class PreferencesManager @Inject constructor(
         }
     }
     
+    /**
+     * Get block regions
+     */
+    val blockRegions: Flow<List<BlockRegion>> = context.dataStore.data.map { preferences ->
+        val json = preferences[BLOCK_REGIONS] ?: "[]"
+        try {
+            Json.decodeFromString<List<Map<String, Float>>>(json).map {
+                BlockRegion(it["left"]!!, it["top"]!!, it["right"]!!, it["bottom"]!!)
+            }
+        } catch (e: Exception) {
+            emptyList()
+        }
+    }
+
+    /**
+     * Set block regions
+     */
+    suspend fun setBlockRegions(regions: List<BlockRegion>) {
+        context.dataStore.edit { preferences ->
+            val json = Json.encodeToString(regions.map {
+                mapOf("left" to it.left, "top" to it.top, "right" to it.right, "bottom" to it.bottom)
+            })
+            preferences[BLOCK_REGIONS] = json
+        }
+    }
+
     /**
      * Clear all preferences
      */

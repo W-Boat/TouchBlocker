@@ -38,6 +38,12 @@
             android:label="设置"
             android:parentActivityName="com.example.myapplication.MainActivity" />
 
+        <activity
+            android:name="com.example.myapplication.RegionSelectionActivity"
+            android:label="选择屏蔽区域"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
+            android:parentActivityName="com.example.myapplication.MainActivity" />
+
         <!-- LSPosed模块声明 -->
         <meta-data
             android:name="xposedmodule"

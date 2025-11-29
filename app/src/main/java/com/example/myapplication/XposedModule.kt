@@ -3,11 +3,13 @@ package com.example.myapplication
 import android.content.Context
 import android.content.SharedPreferences
 import android.view.MotionEvent
+import com.example.myapplication.data.model.BlockRegion
 import de.robv.android.xposed.IXposedHookLoadPackage
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
 import de.robv.android.xposed.callbacks.XC_LoadPackage
+import kotlinx.serialization.json.Json
 
 class XposedModule : IXposedHookLoadPackage {
     
@@ -34,14 +36,25 @@ class XposedModule : IXposedHookLoadPackage {
                 object : XC_MethodHook() {
                     override fun beforeHookedMethod(param: MethodHookParam) {
                         val inputEvent = param.args[0]
-                        
+
                         // 检查是否是触摸事件
                         if (inputEvent is MotionEvent) {
                             // 检查触摸屏蔽是否启用
                             if (isTouchBlockingEnabled()) {
-                                // 屏蔽触摸事件
-                                param.result = true
-                                return
+                                val regions = getBlockRegions()
+                                if (regions.isEmpty()) {
+                                    // 无区域配置，屏蔽所有触摸
+                                    param.result = true
+                                    return
+                                } else {
+                                    // 检查触摸点是否在屏蔽区域内
+                                    val x = inputEvent.x
+                                    val y = inputEvent.y
+                                    if (regions.any { it.contains(x, y) }) {
+                                        param.result = true
+                                        return
+                                    }
+                                }
                             }
                         }
                     }
@@ -78,6 +91,19 @@ class XposedModule : IXposedHookLoadPackage {
         }
     }
     
+    private fun getBlockRegions(): List<BlockRegion> {
+        return try {
+            val context = getSystemContext()
+            val prefs = context.getSharedPreferences("com.example.myapplication_preferences", Context.MODE_WORLD_READABLE)
+            val json = prefs.getString("block_regions", "[]") ?: "[]"
+            Json.decodeFromString<List<Map<String, Float>>>(json).map {
+                BlockRegion(it["left"]!!, it["top"]!!, it["right"]!!, it["bottom"]!!)
+            }
+        } catch (e: Exception) {
+            emptyList()
+        }
+    }
+
     private fun getSystemContext(): Context {
         return XposedHelpers.callStaticMethod(
             XposedHelpers.findClass("android.app.ActivityThread", null),
